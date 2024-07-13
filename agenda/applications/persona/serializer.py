@@ -1,5 +1,9 @@
 from rest_framework import serializers
 
+from .models import Person
 
-class LoginSocialSerializer(serializers.Serializer):
-    token = serializers.CharField(required=True)
+
+class ListaPersonasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = '__all__'

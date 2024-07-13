@@ -16,9 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from agendadj.agenda.applications.persona.views import LoginUser, LoginView
+from .views import ListPersons
 
 urlpatterns = [
-    path('login/', LoginUser.as_view(), name='login'),
-    path('api/google-login/', LoginView.as_view(), name='google-login')
+    path('api/lista-personas/', ListPersons.as_view(), name='lista_personas'),
 ]

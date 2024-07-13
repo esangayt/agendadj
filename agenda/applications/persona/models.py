@@ -31,6 +31,7 @@ class Person(TimeStampedModel):
     class Meta:
         verbose_name = 'Persona'
         verbose_name_plural = 'Personas'
+
     
     def __str__(self):
         return self.full_name
