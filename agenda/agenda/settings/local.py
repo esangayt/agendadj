@@ -1,3 +1,6 @@
+import firebase_admin
+from firebase_admin import credentials, auth
+
 from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('APP_DEBUG', default=False, cast=bool)
@@ -18,6 +21,8 @@ DATABASES = {
     }
 }
 
+
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
 
@@ -31,3 +36,6 @@ EMAIL_HOST = config('EMAIL_HOST', cast=str)
 EMAIL_HOST_USER = config('EMAIL_USER', cast=str)
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD',cast=str)
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
+
+cred = credentials.Certificate('django-key.json')
+default_app = firebase_admin.initialize_app(cred)
