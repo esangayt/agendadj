@@ -1,0 +1,7 @@
+asgiref
+Django
+django-model-utils
+psycopg2-binary
+pytz
+sqlparse
+Unipath

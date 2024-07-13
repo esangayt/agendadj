@@ -1,0 +1,59 @@
+name: 'django-rest'
+services:
+  database:
+    image: 'postgres:15.3'
+    container_name: django-database
+    restart: unless-stopped
+    ports:
+      - '5431:5432'
+    environment:
+      TZ: 'UTC'
+      PGTZ: 'UTC'
+      PGPASSWORD: 'postgres'
+      POSTGRES_DB: 'postgres'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    command: postgres -c 'max_connections=200'
+    volumes:
+      - django-pgsql:/var/lib/postgresql/data
+    networks:
+      - django-net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "postgres",
+          "-U",
+          "postgres"
+        ]
+      retries: 3
+      timeout: 5s
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: django-pgadmin
+    restart: unless-stopped
+    environment:
+      TZ: 'UTC'
+      PGADMIN_DEFAULT_EMAIL: 'support@django.net'
+      PGADMIN_DEFAULT_PASSWORD: 'postgres'
+    ports:
+      - "8081:80"
+    networks:
+      - django-net
+    volumes:
+      - django-pgadmin:/var/lib/pgadmin
+    depends_on:
+      - database
+networks:
+  #docker network create -d bridge django-net
+  django-net:
+    name: django-net
+    driver: bridge
+    external: true
+volumes:
+  djangorest-pgsql:
+    name: djangorest-pgsql
+    driver: local
