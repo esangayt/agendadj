@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block js %}
+    <script type="module">
+        import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js';
+
+        import {
+            GoogleAuthProvider,
+            getAuth,
+            signInWithEmailAndPassword,
+        } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const googleProvider = new GoogleAuthProvider();
+        const auth = getAuth(app);
+
+        async function loginRedirectGoogle() {
+            console.log("loginRedirectGoogle")
+
+            await signInWithEmailAndPassword(auth, 'admin@admin.com',
+                'adminADMIN123.')
+                .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+
+                    //print token
+                    user.getIdToken().then(function (idToken) {
+                        console.log(idToken)
+                    });
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode)
+                    console.log(errorMessage)
+                });
+        }
+
+        window.loginRedirectGoogle = loginRedirectGoogle;
+    </script>
+{% endblock js %}
