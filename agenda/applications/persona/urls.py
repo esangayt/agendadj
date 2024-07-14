@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from .views import ListPersons
+from .views import ListPersons, CretePersonaAPI, RetrievePerson, DestroyPerson, UpdatePerson
 
 urlpatterns = [
     path('api/lista-personas/', ListPersons.as_view(), name='lista_personas'),
+    path('api/crear-persona/', CretePersonaAPI.as_view(), name='crear_persona'),
+    path('api/ver-persona/<pk>', RetrievePerson.as_view(), name='ver_persona'),
+    path('api/delete-person/<pk>', DestroyPerson.as_view(), name='delete_persona'),
+    path('api/update-person/<pk>', UpdatePerson.as_view(), name='Update_persona'),
 ]

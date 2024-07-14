@@ -3,12 +3,15 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from firebase_admin import auth
 from rest_framework import status
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import (
+ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView,
+RetrieveUpdateAPIView
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Person
-from .serializer import ListaPersonasSerializer
+from .serializer import PersonasSerializer
 
 
 class LoginUser(TemplateView):
@@ -29,15 +32,44 @@ class LoginUser(TemplateView):
 #     serializer_class = LoginSocialSerializer
 
 class ListPersons(ListAPIView):
-    serializer_class = ListaPersonasSerializer
+    serializer_class = PersonasSerializer
 
     def get_queryset(self):
         return Person.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        #lista - json
-        #json - lista
-        serializer = ListaPersonasSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
+class CretePersonaAPI(CreateAPIView):
+    serializer_class = PersonasSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class RetrievePerson(RetrieveAPIView):
+    serializer_class = PersonasSerializer
+
+    def get_queryset(self):
+        return Person.objects.all()
+
+
+class DestroyPerson(DestroyAPIView):
+    serializer_class = PersonasSerializer
+
+    def get_queryset(self):
+        return Person.objects.all()
+
+
+class UpdatePerson(UpdateAPIView):
+    serializer_class = PersonasSerializer
+
+    def get_queryset(self):
+        return Person.objects.all()
+
+
+class RetrieveUpdatePerson(RetrieveUpdateAPIView):
+    serializer_class = PersonasSerializer
+
+    def get_queryset(self):
+        return Person.objects.all()
