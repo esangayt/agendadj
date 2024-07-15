@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 
 from .models import Person, Reunion
 from .serializer import PersonasSerializer, PersonaSerializer, PersonasSerializer2, ReunionSerializer, \
-    ReunionSerializerNewAttribute, ReunionSerializerHyperLink, PersonPagination
+    ReunionSerializerNewAttribute, ReunionSerializerHyperLink, PersonPagination, CountReunionSerializer
 
 
 class LoginUser(TemplateView):
@@ -119,3 +119,11 @@ class PersonPaginationLists(ListAPIView):
 
     def get_queryset(self):
         return Person.objects.all()
+
+
+class ReunionByPersonJob(ListAPIView):
+
+    serializer_class = CountReunionSerializer
+
+    def get_queryset(self):
+        return Reunion.objects.cantidad_reuniones_job()

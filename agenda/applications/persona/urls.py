@@ -18,7 +18,7 @@ from django.urls import path, re_path, include
 
 from .views import (
     ListPersons, CretePersonaAPI, RetrievePerson, DestroyPerson, UpdatePerson,
-    PersonAPILista,ReunionAPILista,CreateReunionAPI,RetrieveReunionAPI, PersonPaginationLists
+    PersonAPILista, ReunionAPILista, CreateReunionAPI, RetrieveReunionAPI, PersonPaginationLists, ReunionByPersonJob
 )
 
 app_name = 'persona_app'
@@ -37,5 +37,6 @@ urlpatterns = [
     path('api/ver-reunion/<pk>', RetrieveReunionAPI.as_view(), name='ver_reunion'),
 
     path('api/person-pagination/', PersonPaginationLists.as_view(), name='person_pagination'),
+    path('api/cubo/reunionbyjob/', ReunionByPersonJob.as_view(), name='reunion_by_job'),
 
 ]

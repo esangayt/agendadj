@@ -3,6 +3,8 @@ from model_utils.models import TimeStampedModel
 #
 from django.db import models
 
+from agendadj.agenda.applications.persona.manager import ReunionManager
+
 
 class Hobby(TimeStampedModel):
     """ Modelo para registrar hobbies de una persona """
@@ -65,6 +67,8 @@ class Reunion(TimeStampedModel):
         'Asunto de Reunión',
         max_length=100
     )
+
+    objects = ReunionManager()
 
     class Meta:
         verbose_name = 'Reunion'

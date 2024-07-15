@@ -83,3 +83,7 @@ class PersonPagination(pagination.PageNumberPagination):
     max_page_size = 100 #maximo a guardar
     # page_size_query_param = 'page_size'
     # last_page_strings = ('last',
+
+class CountReunionSerializer(serializers.Serializer):
+    jobs = serializers.CharField()
+    cantidad = serializers.IntegerField()
