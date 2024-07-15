@@ -16,12 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from .views import ListPersons, CretePersonaAPI, RetrievePerson, DestroyPerson, UpdatePerson
+from .views import (
+    ListPersons, CretePersonaAPI, RetrievePerson, DestroyPerson, UpdatePerson,
+    PersonAPILista,ReunionAPILista,CreateReunionAPI,RetrieveReunionAPI, PersonPaginationLists
+)
+
+app_name = 'persona_app'
 
 urlpatterns = [
     path('api/lista-personas/', ListPersons.as_view(), name='lista_personas'),
     path('api/crear-persona/', CretePersonaAPI.as_view(), name='crear_persona'),
-    path('api/ver-persona/<pk>', RetrievePerson.as_view(), name='ver_persona'),
+    path('api/ver-persona/<pk>', RetrievePerson.as_view(), name='persona-detail'),
     path('api/delete-person/<pk>', DestroyPerson.as_view(), name='delete_persona'),
     path('api/update-person/<pk>', UpdatePerson.as_view(), name='Update_persona'),
+    # =======================
+    path('api/list-person/', PersonAPILista.as_view(), name='list_person'),
+
+    path('api/list-reunion/', ReunionAPILista.as_view(), name='list_reunion'),
+    path('api/crear-reunion/', CreateReunionAPI.as_view(), name='crear_reunion'),
+    path('api/ver-reunion/<pk>', RetrieveReunionAPI.as_view(), name='ver_reunion'),
+
+    path('api/person-pagination/', PersonPaginationLists.as_view(), name='person_pagination'),
+
 ]
